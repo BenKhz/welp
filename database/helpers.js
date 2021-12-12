@@ -2,7 +2,7 @@ const db = require('./database_init');
 
 let helpers = {
     getAll: (callback) => {
-        let queryString = 'SELECT * FROM choices;'
+        var queryString = 'SELECT * FROM choices;'
         db.query(queryString, (err, results) => {
             if (err){
                 callback(err)
@@ -22,11 +22,20 @@ let helpers = {
                 }
             })
     },
-    deleteOne: (req, res) => {
-       
+    deleteOne: (data, callback) => {
+        let {restaurant} = data
+            let queryString = `DELETE FROM choices WHERE restaurant='${restaurant}';`
+            db.query(queryString, (err, results) => {
+                if (err){
+                    callback(err)
+                } else {
+                    callback(null, results)
+                }
+            })
+
     },
     updateOne: (req, res) => {
-        
+
     }
 }
 
